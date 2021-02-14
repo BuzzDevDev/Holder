@@ -1,10 +1,8 @@
 /**
  * @license MIT MIT License
  * @author Bleart Emini
- * 
+ * @description Holds temperary files and more to be requested with an api key.
  */
-
-
 
 
 const EasyToken = require("@ksplat/easytoken");
@@ -29,9 +27,11 @@ var options = {
 function create(file, fileType) {
     var apikey = EasyToken.createToken(options);
     var passphrase = EasyToken.createToken(options).hexEncode();
+    var name = passphrase.decode();
     var obj = {
         apikey: apikey,
-        passphrase: passphrase
+        passphrase: passphrase,
+        name: name
     };
     return obj;
 };
@@ -44,28 +44,17 @@ function create(file, fileType) {
 
 function getKey(passphrase) {
     var name = passphrase.decode();
-    jsonReader('./keys/keys.json', (err, data) => {
-        if(err) {
-            console.log('Error reading file:', err)
-            return;
-        };
-
-        if(data.hasOwnProperty(name)) {
-            return data[name].key;
-        };
-        
-        return console.log("Passphrase not found.");
-    });
-};
-
-function reqFile(options) {
-    options = options || {
-
+    var data = jsonReader('./keys/keys.json');
+    
+    if(data.hasOwnProperty(name)) {
+        return data[name].key;
+    }else{
+       return console.log("Passphrase not found."); 
     };
 };
 
+
 module.exports = {
-    reqFile: reqFile,
     getKey: getKey,
     create: create
 };
