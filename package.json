@@ -1,0 +1,18 @@
+{
+  "name": "@ksplat/holder",
+  "version": "1.0.0",
+  "description": "Store temporary JSON and other files here and req them with a key.",
+  "main": "holder.js",
+  "scripts": {
+    "dev": "nodemon holder.js"
+  },
+  "keywords": [
+    "Holder"
+  ],
+  "author": "Bleart Emini",
+  "license": "MIT",
+  "dependencies": {
+    "@ksplat/easytoken": "^2.1.0",
+    "fs": "0.0.1-security"
+  }
+}
