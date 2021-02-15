@@ -10,7 +10,6 @@ const { jsonReader } = require("./utils/jsonreader")
 const fs  = require("fs");
 const { String } = require("./utils/hash/hash");
 
-
 var options = {
     characters: "ABC123",
     base64Encode: true,
@@ -33,6 +32,17 @@ function create(file, fileType) {
         passphrase: passphrase,
         name: name
     };
+
+    // edit keys.json file
+    var data = jsonReader("./keys/keys.json")
+    data.keys += 1;
+    data.keyList.push(apikey);
+    data[name] = obj;
+    fs.writeFileSync("./keys/keys.json", JSON.stringify(data));
+
+    // create json file
+    fs.writeFileSync(`./keys/${name}.json`, JSON.stringify(obj));
+
     return obj;
 };
 

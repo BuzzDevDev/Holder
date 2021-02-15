@@ -39,14 +39,12 @@ app.get('/api/:id/:name', (req, res) => {
     console.log(nameFound)
     
     if(found == true && nameFound == true) {
-        res.send("Hello World!");
-        res.end()
+        var data = jsonReader(`./keys/${name}.json`)
+        res.send(data);
+        res.end();
     }else{
-        res.send("hello")
+        res.send("Api key and/or Name does not match.")
     };
-    
-    
-    
     
     res.end();
 });

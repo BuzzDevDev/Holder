@@ -1,12 +1,7 @@
 const holder = require("../holder");
 
-var options = {
-    apikey: "Your api key",
-    fileType: "json"
-};
 
-var json = 
-{
+var json = {
     "myData": ["foo", "bar"]
 };
 
