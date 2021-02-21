@@ -18,12 +18,12 @@ var options = {
 
 /**
  * 
- * @param {} file An object, string, number, or anything that needs to be written to a file.
- * @param {String} fileType JSON or txt.
+ * @param {} fileData An object, string, number, or anything that needs to be written to a file.
+ * @param {String} fileType The file type that the data is saved to.
  * @description Returns an object with your api key and passphrase. Creates a file with the data passed that can be requested with your api key.
  */
 
-function create(file, fileType) {
+function create(fileData, fileType) {
     var apikey = EasyToken.createToken(options);
     var passphrase = EasyToken.createToken(options).hexEncode();
     var name = passphrase.decode();
@@ -41,7 +41,7 @@ function create(file, fileType) {
     fs.writeFileSync("./keys/keys.json", JSON.stringify(data));
 
     // create json file
-    fs.writeFileSync(`./keys/${name}.json`, JSON.stringify(obj));
+    fs.writeFileSync(`./keys/${name}.${fileType}`, JSON.stringify(fileData));
 
     return obj;
 };
@@ -59,7 +59,7 @@ function getKey(passphrase) {
     if(data.hasOwnProperty(name)) {
         return data[name].key;
     }else{
-       return console.log("Passphrase not found."); 
+       return false;
     };
 };
 

@@ -3,6 +3,7 @@ const app = express();
 const server = require('http').Server(app);
 const fs = require('fs');
 const { jsonReader } = require("./utils/jsonreader")
+const { create } = require("./holder")
 
 var port = process.env.PORT || 8080;
 
@@ -11,7 +12,9 @@ app.use(express.urlencoded({
     extended: true
 }));
 
-app.get('/api/:id/:name', (req, res) => {
+// get your data
+
+app.get('/api/get/:id/:name', (req, res) => {
     var id = req.params.id;
     var name = req.params.name;
     var found = false;
@@ -34,9 +37,6 @@ app.get('/api/:id/:name', (req, res) => {
             console.log("Key and/or Name not found");
         };
     });
-
-    console.log(found)
-    console.log(nameFound)
     
     if(found == true && nameFound == true) {
         var data = jsonReader(`./keys/${name}.json`)
@@ -48,6 +48,25 @@ app.get('/api/:id/:name', (req, res) => {
     
     res.end();
 });
+
+// create your api key, passphrase, name, and file to be req
+
+app.get('/api/create/:fileData/:fileType', (req, res) => {
+    var fileData = req.params.fileData;
+    var fileType = req.params.fileType;
+
+    if(fileType == "json" || fileType == "JSON") {
+        var result = JSON.parse(fileData);
+    };
+
+    var obj = create(result, fileType);
+
+    res.send("<p>Keep this data:<p> <br> <br>" + JSON.stringify(obj))
+    res.end();
+});
+
+
+
 
 // use webpage file index.html in /public/
 app.use(express.static(__dirname + '/public/'));

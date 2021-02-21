@@ -4,9 +4,8 @@
   "description": "Store temporary JSON and other files here and req them with a key.",
   "main": "holder.js",
   "scripts": {
-    "dev": "nodemon example/example.js",
-    "test": "node example/example.js",
-    "start": "nodemon server.js"
+    "dev": "nodemon server.js",
+    "start": "node server.js"
   },
   "keywords": [
     "Holder"
