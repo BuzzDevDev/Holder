@@ -1,2 +1,2 @@
 # Holder
-NodeJS API to request and store files on the fly.
+NodeJS API to request and store temporary files on the fly.
